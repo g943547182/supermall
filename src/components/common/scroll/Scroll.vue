@@ -38,18 +38,24 @@ export default {
       this.$emit('scroll', position)
     })
 
-    //3.监听上拉事件
-    this.scroll.on('pullingUp', () => {
-      this.$emit('pullingUp')
-    })
+    //3.监听滚动的位置
+    if (this.pullUpLoad) {
+      this.scroll.on('pullingUp', () => {
+        this.$emit('pullingUp')
+      })
+    }
 
   },
   methods: {
     scrollTo(x, y, time) {
-      this.scroll.scrollTo(x, y, time)
+      this.scroll && this.scroll.scrollTo(x, y, time)
     },
-    finishPullUp(){
-      this.scroll.finishPullUp()
+    refresh() {
+      console.log('防抖动加载');
+      this.scroll && this.scroll.refresh()
+    },
+    finishPullUp() {
+      this.scroll && this.scroll.finishPullUp()
     }
   }
 }
